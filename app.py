@@ -857,4 +857,4 @@ with col1:
 with col2:
     st.caption(f"📊 {t('last_update')}: {datetime.now().strftime('%d.%m.%Y')}")
 with col3:
-    st.caption("📧 kontakt@property-value.com")
+    st.caption("📧 https://www.linkedin.com/in/pascal-cabrel-nague/")
