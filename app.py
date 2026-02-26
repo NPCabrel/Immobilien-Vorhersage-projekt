@@ -4,14 +4,40 @@
 # MEHRSPRACHIG (DE/FR/EN/ES/IT) - STANDARD DEUTSCH
 # ============================================
 
-import streamlit as st
-import requests
-import pandas as pd
-import plotly.express as px
-import plotly.graph_objects as go
-import numpy as np
-from datetime import datetime
+# import streamlit as st
+# import requests
+# import pandas as pd
+# import plotly.express as px
+# import plotly.graph_objects as go
+# import numpy as np
+# from datetime import datetime
+# Version simplifiée pour déploiement unique
+# À mettre dans app.py
 
+import streamlit as st
+import pandas as pd
+import numpy as np
+import joblib
+from pathlib import Path
+import plotly.express as px
+
+# ============================================
+# CHARGER LE MODÈLE DIRECTEMENT (SANS API)
+# ============================================
+
+@st.cache_resource
+def load_model():
+    """Charge le modèle et le scaler"""
+    model = joblib.load("modelle/random_forest_model.pkl")
+    scaler = joblib.load("modelle/scaler.pkl")
+    features = joblib.load("modelle/feature_cols.pkl")
+    return model, scaler, features
+
+# ============================================
+# INTERFACE UTILISATEUR (inchangée)
+# ============================================
+
+# ... (le reste de app.py reste identique, mais sans appels API)
 # ============================================
 # SEITENKONFIGURATION
 # ============================================
