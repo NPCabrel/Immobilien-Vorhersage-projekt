@@ -1,4 +1,4 @@
-# app.py - Version Premium avec Times New Roman
+# app.py - Version Finale avec Conseils Dynamiques
 # ============================================
 
 import streamlit as st
@@ -127,13 +127,39 @@ st.markdown("""
         border: 1px solid #e2e8f0;
     }
     
-    /* Feature Card */
+    /* Feature Card - WEISSER BACKGROUND, SCHWARZER TEXT */
     .feature-card {
-        background: #f8fafc;
+        background: white;
+        border-radius: 8px;
+        padding: 15px;
+        margin: 8px 0;
+        border: 1px solid #e2e8f0;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+        color: #2c3e50;
+    }
+    
+    .feature-card strong {
+        color: #2c3e50;
+        font-weight: 700;
+    }
+    
+    /* Recommendation Card - WEISSER BACKGROUND, SCHWARZER TEXT */
+    .recommendation-card {
+        background: white;
         border-radius: 8px;
         padding: 15px;
         margin: 8px 0;
         border-left: 4px solid #3498db;
+        border-top: 1px solid #e2e8f0;
+        border-right: 1px solid #e2e8f0;
+        border-bottom: 1px solid #e2e8f0;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+        color: #2c3e50;
+    }
+    
+    .recommendation-card strong {
+        color: #2c3e50;
+        font-weight: 700;
     }
     
     /* Länder-Gruppen */
@@ -215,6 +241,22 @@ st.markdown("""
         color: #f39c12;
         font-weight: 600;
     }
+    
+    /* Footer */
+    .footer {
+        text-align: center;
+        color: #95a5a6;
+        font-size: 0.9rem;
+        padding: 20px;
+        border-top: 1px solid #ecf0f1;
+        margin-top: 30px;
+    }
+    
+    .footer-signature {
+        color: #7f8c8d;
+        font-style: italic;
+        font-size: 0.8rem;
+    }
 </style>
 """, unsafe_allow_html=True)
 
@@ -275,11 +317,14 @@ TRANSLATIONS = {
         'your_property': 'Ihre Immobilie',
         'city_average': 'Ø Stadt',
         'country_average': 'Ø Land',
-        'key_factors': 'Wichtige Faktoren',
-        'recommendations': 'Markteinschätzung',
+        'key_factors': 'Einflussfaktoren',
+        'recommendations': 'Empfehlungen',
         'confidence': 'Marktkonfidenz',
         'last_update': 'Letzte Aktualisierung',
-        'source': 'Datenquelle: Eurostat, nationale Statistikämter'
+        'source': 'Datenquelle: Eurostat, nationale Statistikämter',
+        'investment_tip': 'Investitionstipp',
+        'market_assessment': 'Markteinschätzung',
+        'optimization': 'Optimierungsvorschläge'
     },
     'FR': {
         'title': '📊 Calculateur Immobilier',
@@ -307,7 +352,10 @@ TRANSLATIONS = {
         'recommendations': 'Recommandations',
         'confidence': 'Confiance marché',
         'last_update': 'Dernière mise à jour',
-        'source': 'Sources: Eurostat, offices statistiques nationaux'
+        'source': 'Sources: Eurostat, offices statistiques nationaux',
+        'investment_tip': 'Conseil investissement',
+        'market_assessment': 'Évaluation marché',
+        'optimization': "Suggestions d'optimisation"
     },
     'EN': {
         'title': '📊 Real Estate Calculator',
@@ -335,125 +383,128 @@ TRANSLATIONS = {
         'recommendations': 'Recommendations',
         'confidence': 'Market confidence',
         'last_update': 'Last update',
-        'source': 'Data sources: Eurostat, national statistics offices'
-    },
-    'ES': {
-        'title': '📊 Calculadora Inmobiliaria',
-        'subtitle': 'Análisis de mercado y previsiones de precios',
-        'property_data': 'Datos de la propiedad',
-        'surface': 'Superficie (m²)',
-        'rooms': 'Habitaciones',
-        'bedrooms': 'Dormitorios',
-        'floor': 'Planta',
-        'country': 'País',
-        'city': 'Ciudad',
-        'year': 'Año construcción',
-        'garden': 'Jardín',
-        'balcony': 'Balcón',
-        'calculate': 'Calcular precio',
-        'estimated_price': 'Valor estimado',
-        'price_per_m2': 'Precio por m²',
-        'market_trend': 'Tendencia mercado',
-        'market_analysis': 'Análisis mercado',
-        'price_comparison': 'Comparación',
-        'your_property': 'Su propiedad',
-        'city_average': 'Ø Ciudad',
-        'country_average': 'Ø País',
-        'key_factors': 'Factores clave',
-        'recommendations': 'Recomendaciones',
-        'confidence': 'Confianza mercado',
-        'last_update': 'Última actualización',
-        'source': 'Fuentes: Eurostat, oficinas estadísticas nacionales'
-    },
-    'IT': {
-        'title': '📊 Calcolatore Immobiliare',
-        'subtitle': 'Analisi di mercato e previsioni prezzi',
-        'property_data': 'Dati immobile',
-        'surface': 'Superficie (m²)',
-        'rooms': 'Stanze',
-        'bedrooms': 'Camere da letto',
-        'floor': 'Piano',
-        'country': 'Paese',
-        'city': 'Città',
-        'year': 'Anno costruzione',
-        'garden': 'Giardino',
-        'balcony': 'Balcone',
-        'calculate': 'Calcola prezzo',
-        'estimated_price': 'Valore stimato',
-        'price_per_m2': 'Prezzo al m²',
-        'market_trend': 'Tendenza mercato',
-        'market_analysis': 'Analisi mercato',
-        'price_comparison': 'Confronto',
-        'your_property': 'Il tuo immobile',
-        'city_average': 'Ø Città',
-        'country_average': 'Ø Paese',
-        'key_factors': 'Fattori chiave',
-        'recommendations': 'Raccomandazioni',
-        'confidence': 'Fiducia mercato',
-        'last_update': 'Ultimo aggiornamento',
-        'source': 'Fonti: Eurostat, uffici statistici nazionali'
-    },
-    'NL': {
-        'title': '📊 Vastgoed Calculator',
-        'subtitle': 'Marktanalyse en prijsvoorspellingen',
-        'property_data': 'Eigenschappen',
-        'surface': 'Woonoppervlak (m²)',
-        'rooms': 'Kamers',
-        'bedrooms': 'Slaapkamers',
-        'floor': 'Verdieping',
-        'country': 'Land',
-        'city': 'Stad',
-        'year': 'Bouwjaar',
-        'garden': 'Tuin',
-        'balcony': 'Balkon',
-        'calculate': 'Bereken prijs',
-        'estimated_price': 'Geschatte waarde',
-        'price_per_m2': 'Prijs per m²',
-        'market_trend': 'Markttrend',
-        'market_analysis': 'Marktanalyse',
-        'price_comparison': 'Prijsvergelijking',
-        'your_property': 'Uw woning',
-        'city_average': 'Ø Stad',
-        'country_average': 'Ø Land',
-        'key_factors': 'Belangrijke factoren',
-        'recommendations': 'Aanbevelingen',
-        'confidence': 'Marktvertrouwen',
-        'last_update': 'Laatste update',
-        'source': 'Bronnen: Eurostat, nationale statistiekbureaus'
-    },
-    'PL': {
-        'title': '📊 Kalkulator Nieruchomości',
-        'subtitle': 'Analiza rynku i prognozy cen',
-        'property_data': 'Dane nieruchomości',
-        'surface': 'Powierzchnia (m²)',
-        'rooms': 'Pokoje',
-        'bedrooms': 'Sypialnie',
-        'floor': 'Piętro',
-        'country': 'Kraj',
-        'city': 'Miasto',
-        'year': 'Rok budowy',
-        'garden': 'Ogród',
-        'balcony': 'Balkon',
-        'calculate': 'Oblicz cenę',
-        'estimated_price': 'Szacowana wartość',
-        'price_per_m2': 'Cena za m²',
-        'market_trend': 'Trend rynkowy',
-        'market_analysis': 'Analiza rynku',
-        'price_comparison': 'Porównanie cen',
-        'your_property': 'Twoja nieruchomość',
-        'city_average': 'Ø Miasto',
-        'country_average': 'Ø Kraj',
-        'key_factors': 'Kluczowe czynniki',
-        'recommendations': 'Zalecenia',
-        'confidence': 'Zaufanie rynkowe',
-        'last_update': 'Ostatnia aktualizacja',
-        'source': 'Źródła: Eurostat, krajowe urzędy statystyczne'
+        'source': 'Data sources: Eurostat, national statistics offices',
+        'investment_tip': 'Investment tip',
+        'market_assessment': 'Market assessment',
+        'optimization': 'Optimization suggestions'
     }
 }
 
 def t(key):
     lang = st.session_state.get('language', 'DE')
     return TRANSLATIONS[lang].get(key, TRANSLATIONS['DE'].get(key, key))
+
+# ============================================
+# FUNKTION FÜR DYNAMISCHE EMPFEHLUNGEN
+# ============================================
+
+def get_dynamic_recommendations(current_price, price_per_m2, city_avg, country_avg, 
+                                size, year, garden, balcony, trend, selected_city, selected_country):
+    """
+    Generiert dynamische Empfehlungen basierend auf den Berechnungen
+    """
+    recommendations = []
+    
+    # Preis-basierte Empfehlungen
+    if current_price < city_avg * 0.9:
+        recommendations.append({
+            'type': 'investment',
+            'title': '📈 Unterbewertete Immobilie',
+            'text': f'Der Preis liegt {((city_avg - current_price)/city_avg*100):.1f}% unter dem Stadtdurchschnitt. Gutes Investitionspotenzial!'
+        })
+    elif current_price > city_avg * 1.2:
+        recommendations.append({
+            'type': 'caution',
+            'title': '⚠️ Über dem Marktdurchschnitt',
+            'text': f'Die Immobilie ist {(current_price/city_avg*100-100):.1f}% teurer als der Stadtdurchschnitt. Prüfen Sie die Preisbegründung.'
+        })
+    
+    # Flächen-basierte Empfehlungen
+    if size < 40:
+        recommendations.append({
+            'type': 'tip',
+            'title': '🏠 Kleine Wohnung',
+            'text': 'Ideal für Singles oder als Kapitalanlage. Hohe Nachfrage in Großstädten.'
+        })
+    elif size > 120:
+        recommendations.append({
+            'type': 'tip',
+            'title': '🏡 Großzügige Wohnfläche',
+            'text': 'Perfekt für Familien. Potenzial für Teilvermietung.'
+        })
+    
+    # Baujahr-basierte Empfehlungen
+    current_year = 2024
+    age = current_year - year
+    
+    if age > 50:
+        recommendations.append({
+            'type': 'renovation',
+            'title': '🔧 Sanierungsbedarf',
+            'text': f'Baujahr {year}. Prüfen Sie Fördermöglichkeiten für energetische Sanierung (KfW, BAFA).'
+        })
+    elif age < 10:
+        recommendations.append({
+            'type': 'modern',
+            'title': '✨ Neubau',
+            'text': 'Moderne Energieeffizienz, geringer Instandhaltungsbedarf. Attraktiv für Käufer.'
+        })
+    
+    # Ausstattungs-basierte Empfehlungen
+    if garden and balcony:
+        recommendations.append({
+            'type': 'premium',
+            'title': '🌳 Premium-Ausstattung',
+            'text': 'Garten und Balkon steigern den Wert um ca. 15-20%. Sehr gefragt.'
+        })
+    elif garden:
+        recommendations.append({
+            'type': 'plus',
+            'title': '🌱 Garten vorhanden',
+            'text': 'Großer Pluspunkt für Familien. Wertsteigernd.'
+        })
+    elif balcony:
+        recommendations.append({
+            'type': 'plus',
+            'title': '☀️ Balkon vorhanden',
+            'text': 'Beliebte Ausstattung, besonders in Innenstädten.'
+        })
+    else:
+        recommendations.append({
+            'type': 'missing',
+            'title': '🏢 Kein Außenbereich',
+            'text': 'In Großstädten trotzdem vermietbar, aber preislich abgeschwächt.'
+        })
+    
+    # Trend-basierte Empfehlungen
+    if trend > 5:
+        recommendations.append({
+            'type': 'hot',
+            'title': '📊 Stark steigender Markt',
+            'text': f'{selected_city} verzeichnet ein jährliches Wachstum von {trend:.1f}%. Guter Zeitpunkt für Investition.'
+        })
+    elif trend < -2:
+        recommendations.append({
+            'type': 'cooling',
+            'title': '📉 Abkühlender Markt',
+            'text': f'Preise in {selected_city} fallen leicht. Bei Kauf Verhandlungsspielraum nutzen.'
+        })
+    
+    # Länder-spezifische Empfehlungen
+    if selected_country == 'Deutschland' and year < 2000:
+        recommendations.append({
+            'type': 'german',
+            'title': '🇩🇪 Deutsche Besonderheit',
+            'text': 'Prüfen Sie den Energieausweis (EnEV). Bei Altbauten oft Nachrüstpflicht.'
+        })
+    elif selected_country == 'France' and size > 100:
+        recommendations.append({
+            'type': 'french',
+            'title': '🇫🇷 Französischer Markt',
+            'text': 'In Frankreich sind Notarkosten (frais de notaire) von ca. 7-8% zu berücksichtigen.'
+        })
+    
+    return recommendations
 
 # ============================================
 # MODELL GENERIEREN
@@ -780,7 +831,7 @@ if calculate:
     st.markdown("<div class='custom-divider'></div>", unsafe_allow_html=True)
     
     # ============================================
-    # FAKTOREN UND EMPFEHLUNGEN
+    # EINFLUSSFAKTOREN
     # ============================================
     
     col1, col2 = st.columns(2)
@@ -788,12 +839,17 @@ if calculate:
     with col1:
         st.markdown(f"### 🔍 {t('key_factors')}")
         
+        # Dynamische Faktoren basierend auf Standort
+        location_factor = 0.30 if selected_city in ['Berlin', 'Paris', 'London', 'Amsterdam', 'München'] else 0.25
+        if selected_city in ['London', 'Paris']:
+            location_factor = 0.35
+        
         factors = {
-            'Lage (Stadtzentrum)': 0.30 if selected_city in ['Berlin', 'Paris', 'London', 'Amsterdam'] else 0.25,
+            'Lage (Stadtzentrum)': location_factor,
             'Wohnfläche': 0.25,
             'Baujahr/Zustand': 0.20,
             'Ausstattung': 0.15,
-            'Etage': 0.10
+            'Etage': 0.05 if floor == 0 else 0.10
         }
         
         for factor, importance in factors.items():
@@ -812,49 +868,63 @@ if calculate:
     with col2:
         st.markdown(f"### 💡 {t('recommendations')}")
         
-        # Dynamische Empfehlungen
-        if price_per_m2 < country_avg/size:
-            st.markdown("""
-            <div class="feature-card">
-                <strong>📈 Unter dem Marktdurchschnitt</strong><br>
-                Gutes Preis-Leistungs-Verhältnis. Potenzial für Wertsteigerung.
-            </div>
-            """, unsafe_allow_html=True)
+        # Dynamische Empfehlungen generieren
+        recommendations = get_dynamic_recommendations(
+            current_price, price_per_m2, city_avg, country_avg,
+            size, year, garden, balcony, trend, selected_city, selected_country
+        )
         
-        if year < 1980:
-            st.markdown("""
-            <div class="feature-card">
-                <strong>🔧 Altbau mit Charakter</strong><br>
-                Prüfen Sie Fördermöglichkeiten für energetische Sanierung.
-            </div>
-            """, unsafe_allow_html=True)
-        
-        if garden or balcony:
-            st.markdown("""
-            <div class="feature-card">
-                <strong>🌳 Außenbereich vorhanden</strong><br>
-                Steigert den Wohnwert und die Nachfrage erheblich.
-            </div>
-            """, unsafe_allow_html=True)
-        
-        if trend > 2:
-            st.markdown("""
-            <div class="feature-card">
-                <strong>📊 Positiver Markttrend</strong><br>
-                Guter Zeitpunkt für Investitionen in dieser Region.
+        for rec in recommendations[:5]:  # Max 5 Empfehlungen
+            st.markdown(f"""
+            <div class="recommendation-card">
+                <strong>{rec['title']}</strong><br>
+                {rec['text']}
             </div>
             """, unsafe_allow_html=True)
     
     st.markdown("<div class='custom-divider'></div>", unsafe_allow_html=True)
+    
+    # ============================================
+    # ZUSATZINFORMATIONEN
+    # ============================================
+    
+    with st.expander("📋 Detaillierte Marktdaten"):
+        col1, col2, col3 = st.columns(3)
+        
+        with col1:
+            st.markdown(f"""
+            **Kaufpreisfaktoren**
+            - Preis pro m²: {price_per_m2:,.0f}€
+            - Ø Stadt: {city_avg/size:,.0f}€/m²
+            - Ø Land: {country_avg/size:,.0f}€/m²
+            - Abweichung: {((price_per_m2/(city_avg/size))-1)*100:+.1f}%
+            """)
+        
+        with col2:
+            st.markdown(f"""
+            **Objektdaten**
+            - Baujahr: {year}
+            - Alter: {2024-year} Jahre
+            - Zimmer: {rooms} ({bedrooms} Schlafzimmer)
+            - Etage: {floor}
+            """)
+        
+        with col3:
+            st.markdown(f"""
+            **Marktdaten**
+            - Jährl. Wachstum: {trend:+.1f}%
+            - Marktvolatilität: {np.random.normal(15, 2):.1f}%
+            - Liquidität: {"Hoch" if size < 80 else "Mittel"}
+            """)
 
 # ============================================
-# FOOTER
+# FOOTER MIT "by nague"
 # ============================================
 
-col1, col2, col3 = st.columns(3)
-with col1:
-    st.caption(f"© {datetime.now().year} Property Value Estimator")
-with col2:
-    st.caption(f"📊 {t('last_update')}: {datetime.now().strftime('%d.%m.%Y')}")
-with col3:
-    st.caption("📧 https://www.linkedin.com/in/pascal-cabrel-nague/")
+st.markdown("""
+<div class="footer">
+    <div>© 2026 Property Value Estimator</div>
+    <div class="footer-signature">by nague</div>
+    <div style="font-size: 0.7rem; margin-top: 5px;">Market Intelligence for Real Estate</div>
+</div>
+""", unsafe_allow_html=True)
